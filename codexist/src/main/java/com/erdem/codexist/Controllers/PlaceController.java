@@ -1,5 +1,6 @@
 package com.erdem.codexist.Controllers;
 
+import com.erdem.codexist.Entities.PlacesSave;
 import com.erdem.codexist.Services.PlaceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,9 +19,8 @@ public class PlaceController {
     private final PlaceService placeService;
 
     @GetMapping
-    public String deneme(@RequestParam String lang,@RequestParam String lon,@RequestParam String radius) throws URISyntaxException, IOException, InterruptedException {
+    public PlacesSave deneme(@RequestParam String lat, @RequestParam String lon, @RequestParam String radius) throws URISyntaxException, IOException, InterruptedException {
         //System.out.println(placeService.getRequestForNearbyPlaces(lang,lon,radius));
-        placeService.getRequestForNearbyPlaces(lang,lon,radius);
-        return null;
+        return placeService.getRequestForNearbyPlaces(lat,lon,radius);
     }
 }

@@ -1,6 +1,5 @@
 package DTOS.PlacesApiResponse;
 
-import DTOS.PlacesApiResponse.Geometry;
 import lombok.Data;
 
 @Data

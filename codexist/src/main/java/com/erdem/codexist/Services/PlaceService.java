@@ -1,8 +1,11 @@
 package com.erdem.codexist.Services;
 
 import DTOS.PlacesApiResponse.Results;
+import com.erdem.codexist.Entities.PlacesSave;
+import com.erdem.codexist.Repositories.PlacesSaveRepo;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.stereotype.Service;
 
@@ -15,16 +18,27 @@ import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 
 @Service
+@RequiredArgsConstructor
 public class PlaceService {
     ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-    public String getRequestForNearbyPlaces(String lang,String lon,String radius) throws URISyntaxException, IOException, InterruptedException {
+    private final PlacesSaveRepo placeSaveRepo;
+    public PlacesSave getRequestForNearbyPlaces(String lat,String lon,String radius) throws URISyntaxException, IOException, InterruptedException {
+        PlacesSave placesSave = placeSaveRepo.findByLatLonRad(lat+lon+radius);
+        if(placesSave!=null){
+            return placesSave;
+        }
         HttpRequest getRequest = HttpRequest.newBuilder()
-                .uri(new URI("https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyBfHOXW8c7QiN6_iJR6Hx5V7r8RYpnqBps&location=40.943000,29.112930&radius=5000&type=restaurant"))
+                .uri(new URI(String.format("https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyBfHOXW8c7QiN6_iJR6Hx5V7r8RYpnqBps&location=%s,%s&radius=%s&type=restaurant",lat,lon,radius)))
                 .GET().build();
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpResponse<String> getResponse = httpClient.send(getRequest,BodyHandlers.ofString());
         Results results = mapper.readValue(getResponse.body(),Results.class);
-        System.out.println(results.getResults().get(15).getName());
-        return  StringEscapeUtils.unescapeJava(getResponse.body());
+        PlacesSave savePlacesSave = new PlacesSave();
+        savePlacesSave.setResults(results);
+        savePlacesSave.setLatLonRad(lat+lon+radius);
+        placeSaveRepo.save(savePlacesSave);
+        System.out.println(savePlacesSave.getResults().getResults().get(0).getName());
+        return savePlacesSave;
+        //return  StringEscapeUtils.unescapeJava(getResponse.body());
     }
 }

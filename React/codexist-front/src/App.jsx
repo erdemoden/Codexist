@@ -1,12 +1,22 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import {GoogleMap, InfoWindow, Marker, MarkerF, useLoadScript} from "@react-google-maps/api";
 function App() {
   //const [count, setCount] = useState(0)
+ 
   const {isLoaded} = useLoadScript({
     googleMapsApiKey:"AIzaSyBfHOXW8c7QiN6_iJR6Hx5V7r8RYpnqBps",
+  });
+  useEffect(()=>{
+    navigator.geolocation.getCurrentPosition((position)=>{
+      console.log(position);
+      //setLat(position.coords.latitude);
+      //setLon(position.coords.longitude);
+    })
+    //console.log("latitude : "+lat);
+    //console.log("longitude : "+lon);
   });
   if(!isLoaded)return (<div>Loading....</div>)
   return (
@@ -22,7 +32,7 @@ function App() {
     </div>
     <button className='btn btn-success btnpos'>deneme</button>
     
-        <GoogleMap zoom={10} center={{lat:44,lng:-80}} mapContainerClassName="map">
+        <GoogleMap zoom={10} center={{lat:43,lng:29}} mapContainerClassName="map">
           <MarkerF InfoWindow={{content:"merhaba"}} position={{lat:44,lng:-80}}label={{color:"black",text:"HacıOğlu Lahmacun Kebap",fontSize:"15px",className:"deneme"}}></MarkerF>
         </GoogleMap>
        

@@ -1,6 +1,5 @@
 package DTOS.PlacesApiResponse;
 
-import DTOS.PlacesApiResponse.Result;
 import lombok.Data;
 
 import java.util.List;
