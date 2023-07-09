@@ -1,8 +1,6 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+#root{
+overflow-y: hidden;
+overflow-x: hidden;
 }
 
 .logo {
@@ -36,7 +34,53 @@
 .card {
   padding: 2em;
 }
+.map{
+  position: absolute;
+  top: 250px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow-y: hidden;
+}
+.title{
+  text-align: center;
+  font-weight: bolder;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.search{
+  display: flex;
+  width: 100%;
+  height: 80px;
+  margin-top: 10px;
+  align-items: center;
+  justify-content: center;
+  background-color: greenyellow;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+.labels{
+  display: block;
+  margin-left: 100px;
+  margin-right: 10px;
 
+}
+.texts{
+  border-radius: 25px;
+  border: 2px solid #609;
+  padding: 7px;
+  width: 150px; 
+}
+.deneme{
+  margin-top: 50px;
+  font-weight: bolder;
+}
+.btnpos{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+}
 .read-the-docs {
   color: #888;
 }
