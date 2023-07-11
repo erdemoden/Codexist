@@ -81,7 +81,8 @@ const App = ()=> {
       else{
         let url = import.meta.env.VITE_REACT_APP_ROOT_URL+"/places";
        let response = await getPlaces(url,lat,lon,radius);
-       for(result in response.results.results){
+       setMarkers([]);
+       for(let result of response.results.results){
         setMarkers(prewMarkers=>[...prewMarkers,{"name":result.name,"lat":result.geometry.location.lat,"lng":result.geometry.location.lng}])
        }
       }
@@ -102,7 +103,7 @@ const App = ()=> {
     <button className='btn btn-success btnpos' id='search' onClick={Search}>Search</button> 
         <GoogleMap zoom={15} center={{lat:40.943001,lng:29.112930}} mapContainerClassName="map">
           {markers.map((marker,index)=>(
-            <MarkerF InfoWindow={{content:"merhaba"}} position={{lat:marker.lat,lng:marker.lng}}label={{color:"black",text:marker.name,fontSize:"15px",className:"deneme"}}></MarkerF>
+            <MarkerF InfoWindow={{content:"merhaba"}} animation={google.maps.Animation.DROP} position={{lat:marker.lat,lng:marker.lng}}label={{color:"black",text:marker.name,fontSize:"15px",className:"deneme"}}></MarkerF>
           ))}
         </GoogleMap>
     </>
