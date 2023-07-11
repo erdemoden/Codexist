@@ -3,18 +3,16 @@ package com.erdem.codexist.Controllers;
 import com.erdem.codexist.Entities.PlacesSave;
 import com.erdem.codexist.Services.PlaceService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 
 @RestController
 @RequestMapping("places")
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
-public class PlaceController {
+public class PlacesController {
 
     private final PlaceService placeService;
 

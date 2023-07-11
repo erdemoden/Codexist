@@ -1,5 +1,7 @@
 
 export const getPlaces = async(url,lat,lon,radius)=>{
-    let response = await fetch(url+"?lat="+lat+"&lon="+lon+"&radius"+radius);
-    
+    let response = await fetch(url+"?lat="+lat+"&lon="+lon+"&radius="+radius,{
+        method:"GET",
+    });
+    return await response.json();
 }

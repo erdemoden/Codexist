@@ -33,12 +33,12 @@ public class PlaceService {
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpResponse<String> getResponse = httpClient.send(getRequest,BodyHandlers.ofString());
         Results results = mapper.readValue(getResponse.body(),Results.class);
-        PlacesSave savePlacesSave = new PlacesSave();
-        savePlacesSave.setResults(results);
-        savePlacesSave.setLatLonRad(lat+lon+radius);
-        placeSaveRepo.save(savePlacesSave);
-        System.out.println(savePlacesSave.getResults().getResults().get(0).getName());
-        return savePlacesSave;
+        PlacesSave savedPlacesSave = new PlacesSave();
+        savedPlacesSave.setResults(results);
+        savedPlacesSave.setLatLonRad(lat+lon+radius);
+        placeSaveRepo.save(savedPlacesSave);
+        System.out.println(savedPlacesSave.getResults().getResults().get(0).getName());
+        return savedPlacesSave;
         //return  StringEscapeUtils.unescapeJava(getResponse.body());
     }
 }
